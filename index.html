@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Whitelist Police</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-alt: #f7f7f7;
+            --fg: #000000;
+            --fg-muted: #333333;
+            --accent: #000000;
+            --border-subtle: #e6e6e6;
+            --card-radius: 12px;
+            --max-width: 820px;
+            --page-padding: 48px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            display: flex;
+            justify-content: center;
+            padding: var(--page-padding) 20px;
+            line-height: 1.6;
+        }
+
+        .page {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 44px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--fg-muted);
+            margin-bottom: 14px;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--fg-muted);
+        }
+
+        h1 {
+            font-size: clamp(28px, 4.5vw, 36px);
+            letter-spacing: 0.06em;
+            text-transform: none;
+            margin-bottom: 12px;
+            color: var(--fg);
+        }
+
+        header p {
+            font-size: 15px;
+            color: var(--fg-muted);
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .card {
+            background: var(--bg-alt);
+            border-radius: var(--card-radius);
+            border: 1px solid var(--border-subtle);
+            padding: 28px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .card--hero {
+            border: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: visible;
+            padding-top: 30px;
+            margin-bottom: 100px;
+        }
+
+        .card--hero::before {
+            display: none;
+        }
+
+        .card--hero-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-size: 13px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--fg-muted);
+            margin-bottom: 14px;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--fg);
+        }
+
+        .card p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--fg-muted);
+            margin-bottom: 14px;
+        }
+
+        .card p+p {
+            margin-top: 6px;
+        }
+
+        .list {
+            margin-top: 14px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: var(--fg-muted);
+        }
+
+        .list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.7em;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--fg-muted);
+            opacity: 0.95;
+        }
+
+        .cta-line {
+            margin-top: 18px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--fg);
+        }
+
+        .cta-line strong {
+            color: var(--fg);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-size: 13px;
+        }
+
+        .steps {
+            margin-top: 12px;
+            list-style: none;
+            padding-left: 0;
+            font-size: 15px;
+            color: var(--fg-muted);
+        }
+
+        .steps li {
+            margin-bottom: 8px;
+        }
+
+        .steps code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+            font-size: 13px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            background: #f3f3f3;
+            border: 1px solid var(--border-subtle);
+            color: var(--fg);
+        }
+
+        footer {
+            margin-top: 36px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+            font-size: 13px;
+            color: var(--fg-muted);
+            opacity: 0.95;
+        }
+
+        footer .brand-line {
+            margin-bottom: 6px;
+        }
+
+        footer a {
+            color: var(--fg);
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .official-account {
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--fg-muted);
+        }
+
+        .official-account a {
+            color: var(--fg);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        @media (max-width: 600px) {
+            body {
+                padding: 28px 12px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .card--hero {
+                padding-top: 22px;
+                margin-bottom: 0px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header>
+            <h1>Whitelist Police</h1>
+            <p>This is a friendly reminder to enable your Minecraft whitelist.</p>
+        </header>
+
+        <main>
+            <section class="card card--hero">
+                <div class="card--hero-inner">
+                    <div class="card-title">Enable your whitelist</div>
+                    <h2>Your server is publicly reachable</h2>
+                    <p>
+                        We randomly join discovered Minecraft servers to warn owners
+                        that their whitelist is disabled. If this website was send to you,
+                        your server is likely open to anyone.
+                    </p>
+                    <p>
+                        An open whitelist can lead to:
+                    </p>
+                    <ul class="list">
+                        <li>Anyone joining without permission</li>
+                        <li>Increased risk of griefing and abuse</li>
+                        <li>Plugins and admin tools being exposed to strangers</li>
+                        <li>Bots, scanners and automated attacks connecting freely</li>
+                    </ul>
+                    <div class="cta-line">
+                        <small>No one likes a giant crater in their world.</small> <br>
+                        <strong>Protect your server.</strong> Enable your whitelist.
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>How to enable your whitelist</h2>
+                <p>
+                    Most servers can be secured in a few simple steps:
+                </p>
+                <ol class="steps">
+                    <li>1. Run: <code>/whitelist on</code></li>
+                    <li>2. Add yourself: <code>/whitelist add &lt;username&gt;</code></li>
+                    <li>3. Add your trusted players the same way</li>
+                    <li>4. Optional: restart your server</li>
+                    <li>5. Done — only whitelisted players can join</li>
+                </ol>
+            </section>
+        </main>
+
+        <footer>
+            <div class="brand-line">
+                Made by <strong><a href="https://github.com/Qetrox" target="_blank"
+                        rel="noopener noreferrer">Qetrox</a></strong> • Powered by <a href="https://winstreak.ws"
+                    target="_blank" rel="noopener noreferrer">Winstreak.ws</a>
+            </div>
+            <div>
+                Not affiliated with Mojang, Microsoft, or any Minecraft server network.
+            </div>
+            <div class="official-account">
+                Official Whitelist Police Minecraft account: <a
+                    href="https://namemc.com/profile/c1af0a67-d5d2-48eb-8721-0b64c8218c63" title="WhitelistPolice"
+                    target="_blank" rel="noopener noreferrer">NameMC</a>,
+                <a href="https://winstreak.ws/player/c1af0a67-d5d2-48eb-8721-0b64c8218c63" title="WhitelistPolice"
+                    target="_blank" rel="noopener noreferrer">Winstreak.ws</a>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
